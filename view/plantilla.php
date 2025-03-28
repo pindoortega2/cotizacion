@@ -83,6 +83,15 @@
 											</div>
 									<?php
 								break;
+
+								case "4":
+									?>
+										<div class="alert alert-danger fade show">
+											<span class="close" data-dismiss="alert">×</span>
+											<strong>Advertencia:</strong> Se cerro la sesión</a>.
+											</div>
+									<?php
+								break;
 							}
 						}
 					?>

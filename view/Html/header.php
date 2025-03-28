@@ -2,13 +2,9 @@
 <div id="header" class="header navbar-default">
     <!-- begin navbar-header -->
     <div class="navbar-header">
-        <a href="index-1.html" class="navbar-brand"><span class="navbar-logo"></span> <b>Color</b> Admin</a>
-        <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+        <img src="..\..\assets/img/logo.png" alt="" width="120" >
     </div>
+
 
     
     <!-- end navbar-header -->
@@ -95,7 +91,7 @@
                 <a href="javascript:;" class="dropdown-item">Calendar</a>
                 <a href="javascript:;" class="dropdown-item">Setting</a>
                 <div class="dropdown-divider"></div>
-                <a href="javascript:;" class="dropdown-item">Log Out</a>
+                <a href="../Logout/logout.php" class="dropdown-item">Cerrar Sesión</a>
             </div>
         </li>
     </ul>

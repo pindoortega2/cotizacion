@@ -1,3 +1,10 @@
+<?php
+
+	require_once("../../config/conexion.php");
+	if(isset($_SESSION["id"])){
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,3 +79,11 @@
 
 </body>
 </html>
+
+<?php
+	}else {
+		// Si el usuario no existe, redirigir a la página de inicio de sesión con un mensaje de error
+		header("Location:".conectar::ruta()."index.php?m=4");
+		exit();
+	}
+?>

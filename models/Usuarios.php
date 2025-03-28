@@ -36,14 +36,15 @@ class Usuario extends Conectar {
 
                 if (is_array($resultado) && count($resultado) > 0) {
 
-                    $_SESSION["usu_id"] = $resultado["usu_id"];
-                    $_SESSION["usu_nom"] = $resultado["usu_nom"];
-                    $_SESSION["usu_correo"] = $resultado["usu_correo"];
+                    $_SESSION["id"] = $resultado["id"];
+                    $_SESSION["use_nom"] = $resultado["use_nom"];
+                    $_SESSION["use_correo"] = $resultado["use_correo"];
 
                     header("Location:".conectar::ruta()."view/Home/");
                     exit();
 
                 } else {
+                    // Si no se encuentra el usuario, redirigir a la página de inicio de sesión con un mensaje de error
 
                     header("Location:".conectar::ruta()."index.php?m=1");
                     exit();
