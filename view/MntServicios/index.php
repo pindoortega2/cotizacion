@@ -2,7 +2,7 @@
 
 	require_once("../../config/conexion.php");
 	if(isset($_SESSION["id"])){
-		echo $_SESSION["use_nombre"];
+		
 
 ?>
 
@@ -46,7 +46,7 @@
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Blank Page <small>header small text goes here...</small></h1>
+			<h1 class="page-header">Servicios <small>lista de los servicios</small></h1>
 			<!-- end page-header -->
 			<!-- begin panel -->
 			<div class="panel panel-inverse">
@@ -60,7 +60,29 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					Panel Content Here
+					
+
+
+                <table id="lista_data" class="table table-striped table-bordered table-td-valign-middle">
+					<thead>
+						<tr>
+							<th width="60%">Nombre</th>
+							<th width="20%" class="text-nowrap">Editar</th>		
+							<th width="20%" class="text-nowrap">Eliminar</th>
+							
+													
+							
+						</tr>
+					</thead>
+					<tbody>
+
+						
+					</tbody>
+				</table>
+
+
+
+
 				</div>
 			</div>
 			<!-- end panel -->
@@ -77,6 +99,8 @@
 	<?php
         require_once("../Html/js.php");
     ?>
+
+	<script src="../MntServicios/servicios.js"></script>
 
 </body>
 </html>

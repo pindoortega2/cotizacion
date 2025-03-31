@@ -11,8 +11,8 @@
 							</div>
 							<div class="info">
 								<b class="caret pull-right"></b>
-								Sean Ngu
-								<small>Front end developer</small>
+								<?php echo $_SESSION["use_nombre"]; ?>
+								<small>Administrator</small>							
 							</div>
 						</a>
 					</li>
@@ -27,12 +27,11 @@
 						<a href="javascript:;">
 							<b class="caret"></b>
 							<i class="fa fa-th-large"></i>
-							<span>Dashboard</span>
+							<span>Clientes</span>
 						</a>
 						<ul class="sub-menu">
-							<li><a href="index-1.html">Dashboard v1</a></li>
-							<li><a href="index_v2.html">Dashboard v2</a></li>
-							<li><a href="index_v3.html">Dashboard v3</a></li>
+							<li><a href="../MntCliente/">Ver Clientes</a></li>
+							<li><a href="index_v2.html">Agregar Clientes</a></li>						
 						</ul>
 					</li>
 					
@@ -40,31 +39,18 @@
 						<a href="javascript:;">
 							<b class="caret"></b>
 							<i class="fa fa-align-left"></i> 
-							<span>Menu Level</span>
+							<span>Servicios</span>
 						</a>
 						<ul class="sub-menu">
 							<li class="has-sub">
-								<a href="javascript:;">
+								<a href="../MntServicios">
 									<b class="caret"></b>
-									Menu 1.1
+									Ver Servicios
 								</a>
-								<ul class="sub-menu">
-									<li class="has-sub">
-										<a href="javascript:;">
-											<b class="caret"></b>
-											Menu 2.1
-										</a>
-										<ul class="sub-menu">
-											<li><a href="javascript:;">Menu 3.1</a></li>
-											<li><a href="javascript:;">Menu 3.2</a></li>
-										</ul>
-									</li>
-									<li><a href="javascript:;">Menu 2.2</a></li>
-									<li><a href="javascript:;">Menu 2.3</a></li>
-								</ul>
+								
 							</li>
-							<li><a href="javascript:;">Menu 1.2</a></li>
-							<li><a href="javascript:;">Menu 1.3</a></li>
+							<li><a href="javascript:;">Agregar Servicios</a></li>
+							
 						</ul>
 					</li>
 					<!-- begin sidebar minify button -->

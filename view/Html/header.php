@@ -83,15 +83,15 @@
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="..\..\assets\img\user\user-13.jpeg" alt=""> 
-                <span class="d-none d-md-inline">Adam Schwartz</span> <b class="caret"></b>
+                <span class="d-none d-md-inline"><?php echo $_SESSION["use_nombre"]; ?></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="javascript:;" class="dropdown-item">Edit Profile</a>
-                <a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a>
-                <a href="javascript:;" class="dropdown-item">Calendar</a>
-                <a href="javascript:;" class="dropdown-item">Setting</a>
+
+                <a href="javascript:;" class="dropdown-item">Editar Perfil</a>
+                <a href="javascript:;" class="dropdown-item">Calendar</a>                
                 <div class="dropdown-divider"></div>
                 <a href="../Logout/logout.php" class="dropdown-item">Cerrar Sesión</a>
+
             </div>
         </li>
     </ul>

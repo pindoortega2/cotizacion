@@ -11,7 +11,7 @@ class Usuario extends Conectar {
 
             // Saneamiento del correo y contraseña
             $correo = $_POST["use_correo"];
-            $pass = htmlspecialchars($_POST["use_pass"], ENT_QUOTES, 'UTF-8');
+            $pass = htmlspecialchars($_POST["use_password"], ENT_QUOTES, 'UTF-8');
 
             // Validar que no se permitan caracteres especiales en el correo
             if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
@@ -37,11 +37,11 @@ class Usuario extends Conectar {
                 if (is_array($resultado) && count($resultado) > 0) {
 
                     $_SESSION["id"] = $resultado["id"];
-                    $_SESSION["use_nom"] = $resultado["use_nom"];
+                    $_SESSION["use_nombre"] = $resultado["use_nombre"];
                     $_SESSION["use_correo"] = $resultado["use_correo"];
 
                     header("Location:".conectar::ruta()."view/Home/");
-                    exit();
+                    
 
                 } else {
                     // Si no se encuentra el usuario, redirigir a la página de inicio de sesión con un mensaje de error

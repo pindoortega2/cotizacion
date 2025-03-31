@@ -102,7 +102,7 @@
 					</div>
 
 					<div class="form-group m-b-20">
-						<input type="password" id="use_pass" name="use_pass" class="form-control form-control-lg" placeholder="Password" required="">
+						<input type="password" id="use_password" name="use_password" class="form-control form-control-lg" placeholder="Password" required="">
 					</div>
 
 					<div class="checkbox checkbox-css m-b-20">
