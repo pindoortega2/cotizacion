@@ -101,8 +101,13 @@
 						<input type="text" id="use_correo" name="use_correo" class="form-control form-control-lg" placeholder="Usuario" required="">
 					</div>
 
-					<div class="form-group m-b-20">
+					<div class="form-group m-b-20" style="position: relative;">
 						<input type="password" id="use_password" name="use_password" class="form-control form-control-lg" placeholder="Password" required="">
+						<div class="input-group-append">
+							<button type="button" class="btn btn-outline-secondary" id="togglePassword">
+								<i class="fa fa-eye"></i>
+							</button>
+						</div>
 					</div>
 
 					<div class="checkbox checkbox-css m-b-20">
@@ -141,15 +146,24 @@
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="assets\js\demo\login-v2.demo.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
-<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-53034621-1', 'auto');
-	  ga('send', 'pageview');
+	<script>
+		
+		document.getElementById('togglePassword').addEventListener('click', function () {
+			const passwordField = document.getElementById('use_password');
+			const icon = this.querySelector('i');
+			if (passwordField.type === 'password') {
+				passwordField.type = 'text';
+				icon.classList.remove('fa-eye');
+				icon.classList.add('fa-eye-slash');
+			} else {
+				passwordField.type = 'password';
+				icon.classList.remove('fa-eye-slash');
+				icon.classList.add('fa-eye');
+			}
+		});
 
 	</script>
+
 </body>
 </html>

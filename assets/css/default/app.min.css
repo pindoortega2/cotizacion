@@ -5,6 +5,42 @@
  *
  * Copyright (c) 2019 Daniel Eden
  */
+
+
+
+/*Estilos del login ver contraseña ojo*/
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group-append {
+    position: absolute;
+    right: 10px; /* Ajusta la posición horizontal del botón */
+    top: 56%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.input-group-append button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    color: #6c757d; /* Color del ícono */
+}
+
+.input-group-append button:hover {
+    color: #495057; /* Cambia el color al pasar el mouse */
+}
+
+.input-group-append i {
+    font-size: 18px; /* Tamaño del ícono */
+} 
+
+
 @-webkit-keyframes bounce {
 
     0%,

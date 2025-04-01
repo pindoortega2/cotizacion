@@ -7,29 +7,32 @@ function init(){
 }
 
 function guardaryeditar(e){
-    e.preventDefault();
+    e.preventDefault(); //este bloquea el evento submit del formulario o previene el doble click en el boton guardar del formulario
     var formData = new FormData($("#mnt_form")[0]);
     $.ajax({
-        url: "../../controller/categoria.php?op=guardaryeditar",
+        url: "../../controllers/serviciosC.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function(datos){    
+        success: function(datos){ 
+
             console.log(datos);
 
-            if (datos=="ok"){
+            if (datos.trim() === "ok"){
+                
                 $('#mnt_form')[0].reset();
+
                 /* TODO:Ocultar Modal */
-                $("#mdlmnt").modal('hide');
-                $('#lista_data').DataTable().ajax.reload();
+                $("#modalservicios").modal('hide');
+                $('#lista_data').DataTable().ajax.reload();                
 
                 swal({
                     title: "Cotizador!",
                     text: "Registro Guardado.",
                     icon: "success",
                     confirmButtonClass: "btn-success"
-                });
+                });            
             }else{
                 swal({
                     title: "Cotizador!",
@@ -72,10 +75,10 @@ function editar(cat_id){
     });
 }
 
-function eliminar(cat_id){
+function eliminar(id){
     swal({
-        title: 'Eliminar Registro?',
-        text: 'Esta seguro de eliminar el registro!',
+        title: 'Eliminar El Servicio',
+        text: 'Esta seguro de eliminar el servicio!',
         icon: 'error',
         buttons: {
             cancel: {
@@ -94,36 +97,47 @@ function eliminar(cat_id){
             }
         }
     }).then((isConfirm) => {
-        if (isConfirm) {
-            $.ajax({
-            url: "../../controller/categoria.php?op=eliminar",
-            type: "POST",
-            data: { cat_id: cat_id },
-            beforeSend: function() {
-                //TODO: Mostrar el modal de espera aquí
-                $('#mdlcarga').modal('show');
-            },
-            success: function(data) {
-                //TODO: Ocultar el modal de espera aquí
-                setTimeout(function() {
-                    //TODO: Ocultar el modal de espera aquí
-                    $('#mdlcarga').modal('hide');
 
-                    swal({
-                        title: "Cotizador!",
-                        text: "Registro Eliminado.",
-                        icon: "success",
-                        confirmButtonClass: "btn-success"
-                    });
+        if (isConfirm) {
+            
+            $.ajax({
+                url: "../../controllers/serviciosC.php?op=eliminar",
+                type: "POST",
+                data: { id: id },
+                beforeSend: function() {
+
+                    //TODO: Mostrar el modal de espera aquí
+                    $('#mdlcarga').modal('show');
+
+                },
+
+                success: function(data) {
+
+                    //TODO: Ocultar el modal de espera aquí
+                    setTimeout(function() {
+
+                        //TODO: Ocultar el modal de espera aquí
+                        $('#mdlcarga').modal('hide');
+
+                        swal({
+                            title: "Cotizador!",
+                            text: "Registro Eliminado.",
+                            icon: "success",
+                            confirmButtonClass: "btn-success"
+                        });
+
+                        //TODO: Manejar la respuesta del servidor aquí
+                    }, 2000);
                     //TODO: Manejar la respuesta del servidor aquí
-                }, 2000);
-                //TODO: Manejar la respuesta del servidor aquí
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // Ocultar el modal de espera aquí
-                $('#mdlcarga').modal('hide');
-                //TODO: Manejar el error aquí
-            }
+                },
+
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    // Ocultar el modal de espera aquí
+                    $('#mdlcarga').modal('hide');
+                    //TODO: Manejar el error aquí
+                
+                }
             });
 
             $('#lista_data').DataTable().ajax.reload();
@@ -187,9 +201,10 @@ $(document).ready(function(){
 });
 
 $(document).on("click","#btnnuevo", function(){
+
     $('#mnt_form')[0].reset();
     $('#mdltitulo').html('Nuevo Registro');
-    $('#mdlmnt').modal('show');
+    $('#modalservicios').modal('show');
 });
 
 init();

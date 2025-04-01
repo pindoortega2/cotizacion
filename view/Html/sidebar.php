@@ -23,6 +23,7 @@
 				<!-- begin sidebar nav -->
 				<ul class="nav">
 					<li class="nav-header">Navigation</li>
+
 					<li class="has-sub">
 						<a href="javascript:;">
 							<b class="caret"></b>
@@ -53,6 +54,25 @@
 							
 						</ul>
 					</li>
+
+
+					<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret"></b>
+							<i class="fa fa-building"></i> 
+							<span>Empresa</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub">
+								<a href="../MntEmpresa">
+									<b class="caret"></b>
+									Ver Empresa
+								</a>
+								
+							</li>							
+						</ul>
+					</li>
+
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 					<!-- end sidebar minify button -->

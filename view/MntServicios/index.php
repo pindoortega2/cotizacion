@@ -51,7 +51,7 @@
 			<!-- begin panel -->
 			<div class="panel panel-inverse">
 				<div class="panel-heading">
-					<h4 class="panel-title">Panel Title here</h4>
+					<h4 class="panel-title">Tabla de servicios</h4>
 					<div class="panel-heading-btn">
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
@@ -61,17 +61,16 @@
 				</div>
 				<div class="panel-body">
 					
+				<button type="button" id="btnnuevo" class="btn btn-primary">Nuevo Registro</button>
 
+				<br><br>
 
                 <table id="lista_data" class="table table-striped table-bordered table-td-valign-middle">
 					<thead>
 						<tr>
 							<th width="60%">Nombre</th>
 							<th width="20%" class="text-nowrap">Editar</th>		
-							<th width="20%" class="text-nowrap">Eliminar</th>
-							
-													
-							
+							<th width="20%" class="text-nowrap">Eliminar</th>							
 						</tr>
 					</thead>
 					<tbody>
@@ -97,6 +96,8 @@
 	<!-- end page container -->
 	
 	<?php
+		require_once("../Html/modalcarga.php");
+		require_once("modal.php");
         require_once("../Html/js.php");
     ?>
 

@@ -1,10 +1,10 @@
 <?php
     //TODO: Se incluyen los archivos necesarios
     require_once("../config/conexion.php");
-    require_once("../models/Servicios.php");
+    require_once("../models/Empresa.php");
 
      //TODO: Se crea una instancia de la clase Categoria
-     $servicios = new Servicios();
+     $empresa = new Empresa();
 
      //TODO: Se utiliza un switch para determinar qué acción realizar
     switch($_GET["op"]){
@@ -13,9 +13,9 @@
         case "guardaryeditar":
 
             //TODO: Si no se envió un id de categoría, se inserta una nueva categoría
-            if(empty($_POST["cat_id"])){
+            if(empty($_POST["id"])){
 
-                $datos = $servicios->get_servicio_x_nom($_POST["ser_nombre"]);
+                $datos = $empresa->get_empresa_x_nom($_POST["em_nombre"]);
 
                 if(is_array($datos) == true and count($datos) > 0){
                     
@@ -23,7 +23,7 @@
 
                 }else{
 
-                    $servicios->insert_servicio($_POST["ser_nombre"]);
+                    $empresa->insert_empresa($_POST["em_nombre"]);
                     echo "ok";
                     
                 }
@@ -42,15 +42,23 @@
         case "listar":
 
             //TODO: Se obtienen todas las categorías y se preparan los datos para enviar como respuesta
-            $datos = $servicios->get_servicios();
+            $datos = $empresa->get_empresa();
             $data = Array();
+
+            // Obtén los parámetros de paginación enviados por DataTables
+            // Los valores de $_POST['start'] y $_POST['length'] son enviados automáticamente por DataTables cuando configuras la tabla para usar procesamiento del lado del servidor (serverSide: true). Estos parámetros son parte de la solicitud AJAX que DataTables realiza al servidor para manejar la paginación, búsqueda y ordenamiento.
+            $start = isset($_POST['start']) ? intval($_POST['start']) : 0; // Inicio de la paginación
+            $length = isset($_POST['length']) ? intval($_POST['length']) : 10; // Número de registros por página
+            $item = $start + 1; // Número inicial del ítem
 
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = $row["ser_nombre"];                
+                $sub_array[] = $item; // Número del ítem
+                $sub_array[] = $row["em_nombre"];                
                 $sub_array[] = '<button type="button" onClick="editar('.$row["id"].')" id="'.$row["id"].'" class="btn btn-warning btn-xs">Editar</button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["id"].')" id="'.$row["id"].'" class="btn btn-danger btn-xs">Eliminar</button>';
                 $data[] = $sub_array;
+                $item++; // Incrementa el número del ítem para la siguiente fila
             }
 
             //TODO: Se prepara la respuesta en formato JSON
