@@ -1,8 +1,8 @@
 <!-- begin #header -->
 <div id="header" class="header navbar-default">
     <!-- begin navbar-header -->
-    <div class="navbar-header">
-        <img src="..\..\assets/img/logo.png" alt="" width="120" >
+    <div class="navbar-header p-l-10">
+        <img src="..\..\assets/img/LOGO ORION.png" alt="" width="125" >
     </div>
 
 
