@@ -39,41 +39,21 @@
 
         
         //TODO: Si la acción es "listar"
+        
+
+
         case "listar":
+            
+            $start = $_POST['start']; // Índice inicial de la página
+            $length = $_POST['length']; // Número de registros por página
+            $search = isset($_POST['search']['value']) ? $_POST['search']['value'] : ''; // Término de búsqueda
+            $orderColumn = $_POST['order'][0]['column']; // Índice de la columna a ordenar
+            $orderDir = $_POST['order'][0]['dir']; // Dirección del orden (asc o desc)
 
-            //TODO: Se obtienen todas las categorías y se preparan los datos para enviar como respuesta
-            $datos = $cliente->get_cliente();
-            $data = Array();
+            // Llamar al método del modelo para obtener los datos
+            $datos = $cliente->listar_clientes($start, $length, $search, $orderColumn, $orderDir);
 
-            // Obtén los parámetros de paginación enviados por DataTables
-            // Los valores de $_POST['start'] y $_POST['length'] son enviados automáticamente por DataTables cuando configuras la tabla para usar procesamiento del lado del servidor (serverSide: true). Estos parámetros son parte de la solicitud AJAX que DataTables realiza al servidor para manejar la paginación, búsqueda y ordenamiento.
-            $start = isset($_POST['start']) ? intval($_POST['start']) : 0; // Inicio de la paginación
-            $length = isset($_POST['length']) ? intval($_POST['length']) : 10; // Número de registros por página
-            $item = $start + 1; // Número inicial del ítem
-
-            foreach($datos as $row){
-                $sub_array = array();
-                $sub_array[] = $item; // Número del ítem
-                $sub_array[] = $row["cli_nombre"];
-                $sub_array[] = $row["cli_apellido"];
-                $sub_array[] = $row["cli_correo"];
-                $sub_array[] = $row["cli_contacto"];
-                $sub_array[] = $row["cli_direccion"];
-                $sub_array[] = $row["cli_empresa"];  // Muestra el nombre de la empresa
-                $sub_array[] = $row["created_at"];            
-                $sub_array[] = '<button type="button" onClick="editar('.$row["id_cliente"].')" id="'.$row["id_cliente"].'" class="btn btn-warning btn-xs"><i class="fas fa-pen"></i></button>';
-                $sub_array[] = '<button type="button" onClick="eliminar('.$row["id_cliente"].')" id="'.$row["id_cliente"].'" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></button>';
-                $data[] = $sub_array;
-                $item++; // Incrementa el número del ítem para la siguiente fila
-            }
-
-            //TODO: Se prepara la respuesta en formato JSON
-            $results = array(
-                "sEcho"=>1,
-                "iTotalRecords"=>count($data),
-                "iTotalDisplayRecords"=>count($data),
-                "aaData"=>$data);
-            echo json_encode($results);
+            echo json_encode($datos); // Devolver los datos como JSON
             break;
 
 

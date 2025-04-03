@@ -151,75 +151,62 @@ function eliminar(id_cliente){
 }
 
 $(document).ready(function(){
-    tabla=$('#lista_cliente').dataTable({
-        "aProcessing": true,
-        "aServerSide": true,
-        dom: 'Bfrtip',
-        "searching": true,
-        "lengthChange": true,
-        "lengthMenu": [ [10, 25, 50, 100], [10, 25, 50, 100] ], // Opciones de cantidad de registros
-        colReorder: true,
-        buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-                ],
-        "ajax":{
+    tabla = $('#lista_cliente').DataTable({
+        serverSide: true, // Habilitar procesamiento del lado del servidor
+        processing: true, // Mostrar indicador de carga
+        responsive: true, // Habilitar respuesta para pantallas pequeñas
+        destroy: true, // Permitir destruir la tabla anterior
+        ajax: {
             url: '../../controllers/clienteC.php?op=listar',
-            type : "post",
-            dataType : "json",		
-            // success: function(data) {
-            //     console.log("Datos recibidos del servidor:", data); // Imprime el JSON en la consola
-            // },
-            error: function(e) {
-                console.log("Error al recibir los datos:", e.responseText); // Imprime el error si ocurre
-            }            
+            type: 'POST'
         },
-
-        "columns": [
-                { "data": 0 }, // Número del ítem
-                { "data": 1 }, // Nombre del cliente
-                { "data": 2 }, // Apellido del cliente
-                { "data": 3 }, // Correo del cliente
-                { "data": 4 }, // Contacto del cliente
-                { "data": 5 }, // Dirección del cliente
-                { "data": 6 }, // Empresa del cliente
-                { "data": 7 }, // Empresa del cliente
-                { "data": 8 },  // Botón de editar
-                { "data": 9 }  // Botón de Eliminar
-            ],
-
-        "bDestroy": true,
-        "responsive": true,
-        "bInfo":true,
-        "iDisplayLength": 10, // Número de registros por defecto
-        "autoWidth": false,
-        "language": {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
+        columns: [
+            { 
+                data: null, // Columna para el índice
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1; // Calcular el número de ítem
+                },
+                className: "text-center" // Centrar el contenido
             },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            { data: 'cli_nombre' }, // Nombre del cliente
+            { data: 'cli_apellido' }, // Apellido del cliente
+            { data: 'cli_correo' }, // Correo del cliente
+            { data: 'cli_contacto' }, // Contacto del cliente
+            { data: 'cli_direccion' }, // Dirección del cliente
+            { data: 'cli_empresa' }, // Empresa del cliente
+            { data: 'created_at' }, // Empresa del cliente
+            { 
+                data: null, 
+                render: function(data, type, row) {
+                    return '<button class="btn btn-warning btn-sm">Editar</button>';
+                }
+            },
+            { 
+                data: null, 
+                render: function(data, type, row) {
+                    return '<button class="btn btn-danger btn-sm">Eliminar</button>';
+                }
             }
-        }     
-    }).DataTable(); 
+        ],
+        pageLength: 10, // Número de registros por página
+        lengthMenu: [10, 25, 50, 100], // Opciones de paginación
+        order: [[1, 'asc']], // Ordenar por la segunda columna (Nombre del cliente)
+        language: {
+            processing: "Procesando...",
+            lengthMenu: "Mostrar _MENU_ registros",
+            zeroRecords: "No se encontraron resultados",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(filtrado de _MAX_ registros en total)",
+            search: "Buscar:",
+            paginate: {
+                first: "Primero",
+                last: "Último",
+                next: "Siguiente",
+                previous: "Anterior"
+            }
+        }
+    });
 });
 
 $(document).on("click","#btnnuevo", function(){

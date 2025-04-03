@@ -143,6 +143,67 @@
             return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        
+        public function listar_clientes($start, $length, $search, $orderColumn, $orderDir) {
+            $conectar = parent::conexion(); // Establecer la conexión
+            parent::set_names();
+
+            // Columnas disponibles para ordenar
+            $columns = ['id_cliente', 'cli_nombre', 'cli_apellido', 'cli_correo', 'cli_contacto', 'cli_direccion', 'cli_empresa', 'created_at'];
+
+            // Consulta base
+            $sql = "SELECT id_cliente, cli_nombre, cli_apellido, cli_correo, cli_contacto, cli_direccion, cli_empresa, created_at 
+                    FROM cli_clientes";
+
+            // Filtro de búsqueda
+            if (!empty($search)) {
+                $sql .= " WHERE cli_nombre LIKE ? OR cli_apellido LIKE ? OR cli_correo LIKE ?";
+            }
+
+            // Ordenamiento
+            $sql .= " ORDER BY " . $columns[$orderColumn] . " " . $orderDir;
+
+            // Paginación
+            $sql .= " LIMIT ?, ?";
+
+            $stmt = $conectar->prepare($sql);
+
+            // Vincular parámetros
+            $bindIndex = 1;
+            if (!empty($search)) {
+                $stmt->bindValue($bindIndex++, "%$search%");
+                $stmt->bindValue($bindIndex++, "%$search%");
+                $stmt->bindValue($bindIndex++, "%$search%");
+            }
+            $stmt->bindValue($bindIndex++, (int)$start, PDO::PARAM_INT);
+            $stmt->bindValue($bindIndex++, (int)$length, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Obtener el total de registros sin filtro
+            $totalRecords = $conectar->query("SELECT COUNT(*) FROM cli_clientes")->fetchColumn();
+
+            // Obtener el total de registros filtrados
+            $totalFiltered = $totalRecords;
+            if (!empty($search)) {
+                $stmtFiltered = $conectar->prepare("SELECT COUNT(*) FROM cli_clientes WHERE cli_nombre LIKE ? OR cli_apellido LIKE ? OR cli_correo LIKE ?");
+                $stmtFiltered->bindValue(1, "%$search%");
+                $stmtFiltered->bindValue(2, "%$search%");
+                $stmtFiltered->bindValue(3, "%$search%");
+                $stmtFiltered->execute();
+                $totalFiltered = $stmtFiltered->fetchColumn();
+            }
+
+            // Formatear la respuesta para DataTables
+            return [
+                "draw" => intval($_POST['draw']),
+                "recordsTotal" => $totalRecords,
+                "recordsFiltered" => $totalFiltered,
+                "data" => $data
+            ];
+        }
+
     }
 
 ?>        

@@ -64,26 +64,24 @@
 
 				<br><br>
 
-                <table id="lista_cliente" class="table table-striped table-bordered table-td-valign-middle">
-					<thead>
-						<tr>
-                        <th width="1%">Item</th>
-							<th width="10%">Nombre</th>
-							<th width="10%" class="text-nowrap">Apellido</th>		
-							<th width="15%" class="text-nowrap">Correo</th>
-                            <th width="10%" class="text-nowrap">Contacto</th>
-                            <th width="15%" class="text-nowrap">Dirección</th>
-                            <th width="20%" class="text-nowrap">Empresa</th>
-                            <th width="19%" class="text-nowrap">Fecha</th>
-                            <th width="19%" class="text-nowrap">Editar</th>
-                            <th width="19%" class="text-nowrap">Eliminar</th>                        
-						</tr>
-					</thead>
-					<tbody>
-
-						
-					</tbody>
-				</table>
+                <div class="table-responsive">
+    <table id="lista_cliente" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Contacto</th>
+                <th>Dirección</th>
+                <th>Empresa</th>
+                <th>Fecha Creación</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+    </table>
+</div>
 
 				</div>
 			</div>
