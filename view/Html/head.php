@@ -9,6 +9,8 @@
 <link href="..\..\assets\css\default\app.min.css" rel="stylesheet">
 <!-- ================== END BASE CSS STYLE ================== -->
 
+<link href="..\..\assets\plugins\select2\dist\css\select2.min.css" rel="stylesheet">
+
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <link href="..\..\assets\plugins\datatables.net-bs4\css\dataTables.bootstrap4.min.css" rel="stylesheet">
 	<link href="..\..\assets\plugins\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css" rel="stylesheet">

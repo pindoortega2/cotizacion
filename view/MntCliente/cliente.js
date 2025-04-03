@@ -79,10 +79,11 @@ function editar(cat_id){
     });
 }
 
-function eliminar(id){
-    swal({
-        title: 'Eliminar El Servicio',
-        text: 'Esta seguro de eliminar el servicio!',
+function eliminar(id_cliente){
+    swal({    
+
+        title: 'Eliminar al Cliente',
+        text: 'Esta seguro de eliminar al cliente!',
         icon: 'error',
         buttons: {
             cancel: {
@@ -105,9 +106,9 @@ function eliminar(id){
         if (isConfirm) {
             
             $.ajax({
-                url: "../../controllers/serviciosC.php?op=eliminar",
+                url: "../../controllers/clienteC.php?op=eliminar",
                 type: "POST",
-                data: { id: id },
+                data: { id_cliente: id_cliente },
                 beforeSend: function() {
 
                     //TODO: Mostrar el modal de espera aquí
@@ -144,7 +145,7 @@ function eliminar(id){
                 }
             });
 
-            $('#lista_data').DataTable().ajax.reload();
+            $('#lista_cliente').DataTable().ajax.reload();
         }
     });
 }

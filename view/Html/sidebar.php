@@ -22,17 +22,26 @@
 
 				<!-- begin sidebar nav -->
 				<ul class="nav">
-					<li class="nav-header">Navigation</li>
+					<li class="nav-header">Navegación</li>
 
+					<li class="has-sub">
+						<a href="../Home/">
+							<b class="caret"></b>
+							<i class="fas fa-lg fa-fw m-r-10 fa-tachometer-alt"></i>
+							<span>Panel</span>
+						</a>						
+					</li>
+
+					<!-- Clientes -->
 					<li class="has-sub">
 						<a href="javascript:;">
 							<b class="caret"></b>
-							<i class="fa fa-th-large"></i>
+							<i class="fas fa-lg fa-fw m-r-10 fa-users"></i>
 							<span>Clientes</span>
 						</a>
 						<ul class="sub-menu">
 							<li><a href="../MntCliente/">Ver Clientes</a></li>
-							<li><a href="index_v2.html">Agregar Clientes</a></li>						
+													
 						</ul>
 					</li>
 					
@@ -49,13 +58,12 @@
 									Ver Servicios
 								</a>
 								
-							</li>
-							<li><a href="javascript:;">Agregar Servicios</a></li>
+							</li>					
 							
 						</ul>
 					</li>
 
-
+					<!-- Empresa -->
 					<li class="has-sub">
 						<a href="javascript:;">
 							<b class="caret"></b>
@@ -72,6 +80,25 @@
 							</li>							
 						</ul>
 					</li>
+
+					<!-- Cotización -->
+					<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret"></b>
+							<i class="fab fa-lg fa-fw m-r-10 fa-simplybuilt"></i>
+							<span>Cotización</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub">
+								<a href="../MntCotizacion">
+									<b class="caret"></b>
+									Nueva Cotización
+								</a>
+								
+							</li>							
+						</ul>
+					</li>
+
 
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>

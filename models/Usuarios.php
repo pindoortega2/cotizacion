@@ -38,6 +38,7 @@ class Usuario extends Conectar {
 
                     $_SESSION["id"] = $resultado["id"];
                     $_SESSION["use_nombre"] = $resultado["use_nombre"];
+                    $_SESSION["use_apellido"] = $resultado["use_apellido"];
                     $_SESSION["use_correo"] = $resultado["use_correo"];
 
                     header("Location:".conectar::ruta()."view/Home/");

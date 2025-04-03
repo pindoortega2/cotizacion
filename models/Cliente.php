@@ -93,7 +93,7 @@
         }
 
         // TODO: Función para eliminar una categoría de la base de datos.
-        public function delete_servicio($id){
+        public function delete_cliente($id_cliente){
 
             // TODO: Se establece la conexión a la base de datos.
             $conectar= parent::conexion();
@@ -102,14 +102,45 @@
             parent::set_names();
 
             // Se define la consulta SQL para eliminar un servicio.
-            $sql = "DELETE FROM servicios WHERE id = ?";
+            $sql = "DELETE FROM " .$this->table. " WHERE id_cliente = ?";
             $sql = $conectar->prepare($sql);
-            $sql->bindValue(1, $id);
+            $sql->bindValue(1, $id_cliente);
 
             // Ejecuta la consulta y devuelve el número de filas afectadas.
             $sql->execute();
             return $sql->rowCount(); // Devuelve el número de filas eliminadas.
             
+        }
+
+        //TODO: Función para obtener un cliente por su ID
+        public function get_cliente_por_id($id_cliente) {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT cli_contacto, cli_correo, cli_empresa FROM " . $this->table . " WHERE id_cliente = ?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $id_cliente);
+            $sql->execute();
+
+            return $sql->fetchAll(PDO::FETCH_ASSOC); // Devolver los datos del cliente
+        }
+
+
+        
+        public function buscar_cliente($search) {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT id_cliente, cli_nombre, cli_apellido 
+                    FROM " . $this->table . " 
+                    WHERE cli_nombre LIKE ? OR cli_apellido LIKE ? 
+                    LIMIT 50"; // Limitar los resultados a 50 para evitar sobrecarga
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, "%$search%");
+            $sql->bindValue(2, "%$search%");
+            $sql->execute();
+
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
 
     }

@@ -2,13 +2,22 @@
 
 	require_once("config/conexion.php");
 
-	if(isset($_POST["enviar"]) && $_POST["enviar"] == "si"){
+	
+	if (isset($_SESSION["id"])) {
+
+		// Redirigir a la página deseada si la sesión ya está activa
+		header("Location:".conectar::ruta()."view/Home/"); // Cambia "dashboard.php" por la página a la que deseas redirigir
+		exit(); // Detener la ejecución del script
+
+	}else if(isset($_POST["enviar"]) && $_POST["enviar"] == "si"){
 
 		require_once("models/Usuarios.php");
 		$usuario = new Usuario();
 		$usuario -> login();
 
 	}
+
+	
 ?>
 
 <!DOCTYPE html>
@@ -147,6 +156,8 @@
 	<script src="assets\js\demo\login-v2.demo.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
+
+	<!-- Script para colocar el ojo de la contraseña -->
 	<script>
 		
 		document.getElementById('togglePassword').addEventListener('click', function () {
