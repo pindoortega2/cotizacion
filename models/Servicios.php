@@ -3,6 +3,8 @@
 // TODO: Se define la clase "Categoria" que extiende de la clase "Conectar".
     class Servicios extends Conectar {
 
+        private $table = "servicios"; // TODO: Se define la tabla de la base de datos a utilizar.
+
         // TODO: Función para obtener todos los servicios de la base de datos.
         public function get_servicios(){
 
@@ -79,6 +81,40 @@
             $sql->execute();
             return $sql->rowCount(); // Devuelve el número de filas eliminadas.
             
+        }
+
+        // public function buscar_servicios($search) {
+        //     $conectar = parent::conexion();
+        //     parent::set_names();
+
+        //     $sql = "SELECT id, ser_nombre 
+        //             FROM " . $this->table . " 
+        //             WHERE ser_nombre LIKE ?
+        //             LIMIT 50"; // Limitar los resultados a 50 para evitar sobrecarga en caso de que haya nombres casi iguales
+        //     $sql = $conectar->prepare($sql);
+        //     $sql->bindValue(1, "%$search%");
+        //     $sql->execute();
+
+        //     return $sql->fetchAll(PDO::FETCH_ASSOC);
+        // }
+
+        public function buscar_servicios($search) {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT id, ser_nombre FROM servicios";
+            if (!empty($search)) {
+                $sql .= " WHERE ser_nombre LIKE ?";
+            }
+
+            $stmt = $conectar->prepare($sql);
+
+            if (!empty($search)) {
+                $stmt->bindValue(1, "%$search%");
+            }
+
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     }

@@ -113,22 +113,22 @@
 
        
             
-            case "buscar_cliente":
-                $search = isset($_POST["search"]) ? $_POST["search"] : ""; // Término de búsqueda
-                $datos = $cliente->buscar_cliente($search); // Llamar al método del modelo para buscar clientes
-            
-                $resultados = array();
-                if (is_array($datos) && count($datos) > 0) {
-                    foreach ($datos as $row) {
-                        $resultados[] = array(
-                            "id_cliente" => $row["id_cliente"],
-                            "cli_nombre" => $row["cli_nombre"],
-                            "cli_apellido" => $row["cli_apellido"]
-                        );
-                    }
+        case "buscar_cliente":
+            $search = isset($_POST["search"]) ? $_POST["search"] : ""; // Término de búsqueda
+            $datos = $cliente->buscar_cliente($search); // Llamar al método del modelo para buscar clientes
+        
+            $resultados = array();
+            if (is_array($datos) && count($datos) > 0) {
+                foreach ($datos as $row) {
+                    $resultados[] = array(
+                        "id_cliente" => $row["id_cliente"],
+                        "cli_nombre" => $row["cli_nombre"],
+                        "cli_apellido" => $row["cli_apellido"]
+                    );
                 }
-                echo json_encode($resultados); // Devolver los resultados como JSON
-                break;
+            }
+            echo json_encode($resultados); // Devolver los resultados como JSON
+            break;
 
     }
 

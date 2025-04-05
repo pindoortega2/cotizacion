@@ -100,6 +100,23 @@
             }
             break;
 
+        case "buscar_servicios":
+            $search = isset($_POST["search"]) ? $_POST["search"] : ""; // Término de búsqueda
+            $datos = $servicios->buscar_servicios($search); // Llamar al método del modelo para buscar clientes
+        
+            $resultados = array();
+            if (is_array($datos) && count($datos) > 0) {
+                foreach ($datos as $row) {
+                    $resultados[] = array(
+                        "id" => $row["id"],
+                        "ser_nombre" => $row["ser_nombre"],
+                    );
+                }
+            }
+            echo json_encode($resultados); // Devolver los resultados como JSON
+            break;
+
+
     }
 
 ?>

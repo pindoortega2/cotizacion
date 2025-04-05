@@ -3,6 +3,8 @@
 // TODO: Se define la clase "Categoria" que extiende de la clase "Conectar".
     class Empresa extends Conectar {
 
+        private $table = "empresa"; // TODO: Se define la tabla de la base de datos a utilizar.
+
         // TODO: Función para obtener todos los servicios de la base de datos.
         public function get_empresa(){
 
@@ -96,6 +98,21 @@
             $sql->execute();
             return $sql->rowCount(); // Devuelve el número de filas eliminadas.
             
+        }
+
+        public function buscar_empresa($search) {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT id, em_nombre 
+                    FROM " . $this->table . " 
+                    WHERE em_nombre LIKE ?
+                    LIMIT 50"; // Limitar los resultados a 50 para evitar sobrecarga en caso de que haya nombres casi iguales
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, "%$search%");
+            $sql->execute();
+
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
 
     }
