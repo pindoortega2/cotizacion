@@ -43,16 +43,27 @@
 
                 <div class="row row-space-10">
 
-                    <div class="col-md-6">                    
-                        <label for="dpo-options">Valor</label>
-                        <input type="text" class="form-control" name="" id="">
-                    </div>
+                    
 
                     <div class="col-md-6">
-                        <label for="dpo-options">Total</label>
-                        <input type="text" class="form-control" name="" id="">
+                        <div class="form-group m-b-10" id="pdp-price-container" style="display: none;">
+                            <label for="pdp-price">Precio del Entrenamiento práctico PDP</label>
+                            <input type="text" class="form-control" id="pdp-price" name="pdp-price" readonly>
+                        </div>
+                    </div>
+
+
+                    <div id="dpo-input-container" class="col-md-6">
+                        <!-- Aquí se generará dinámicamente el input -->
                     </div>
                 
+                    <div class="col-md-6">
+                        <label for="dpo-options" style="font-weight: bold;">Total</label>
+                            <input type="text" class="form-control text-center" name="total" id="total"  readonly 
+                                style="background-color: #f8f9fa; color: #28a745; font-size: 1.5rem; font-weight: bold; border: 2px solid #28a745; border-radius: 8px;">
+                    </div>
+
+
                 </div>  
             </div>
 
@@ -61,10 +72,7 @@
                 <div class="form-group m-b-10 p-t-5">
                     <label for="dpo-options">Servicios con Precio Fijo</label>
                     <select class="form-control" id="dpo-options" name="dpo-options">
-                        <option value="">Seleccione una opción</option>
-                        <option value="opcion1">150 USD mensual</option>
-                        <option value="opcion2">250 USD mensual</option>
-                        <option value="opcion3">500 USD mensual</option>
+                        <option value="">Seleccione un precio</option>
                     </select>
                 </div>
             </div>

@@ -100,7 +100,9 @@
             }
             break;
 
+        
         case "buscar_servicios":
+
             $search = isset($_POST["search"]) ? $_POST["search"] : ""; // Término de búsqueda
             $datos = $servicios->buscar_servicios($search); // Llamar al método del modelo para buscar clientes
         
@@ -114,8 +116,36 @@
                 }
             }
             echo json_encode($resultados); // Devolver los resultados como JSON
+            
             break;
 
+        
+        case "precios_dpo":
+            $datos = $servicios->get_precios_dpo(); // Llamar al método del modelo
+        
+            $resultados = array();
+            if (is_array($datos) && count($datos) > 0) {
+                foreach ($datos as $row) {
+                    $resultados[] = array(
+                        "id" => $row["id"], // Cambiado de "id_precio" a "id"
+                        "opcion_nombre" => $row["opcion_nombre"], // Agregado para incluir el nombre de la opción
+                        "precio" => $row["precio"]
+                    );
+                }
+            }
+            echo json_encode($resultados); // Devolver los resultados como JSON
+            break;
+
+
+        case "precio_pdp":
+            $datos = $servicios->get_precio_pdp(); // Llamar al método del modelo
+        
+            if (is_array($datos) && count($datos) > 0) {
+                echo json_encode($datos[0]); // Devolver el primer resultado como JSON
+            } else {
+                echo json_encode(array("error" => "No se encontró el precio para el Entrenamiento práctico PDP."));
+            }
+            break;
 
     }
 

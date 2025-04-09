@@ -117,6 +117,59 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        // TODO: Función para obtener todos los precios de los servicios segun id.
+        public function get_precio_servicio(){
+
+            // TODO: Se establece la conexión a la base de datos.
+            $conectar= parent::conexion();
+
+
+            // TODO: Se configura la codificación de caracteres.
+            parent::set_names();
+
+
+            // TODO: Se define la consulta SQL para obtener todas las categorías activas.
+            $sql="SELECT * FROM servicios";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+
+            // TODO: Se obtienen los resultados de la consulta en un arreglo.
+            return $resultado=$sql->fetchAll();
+
+        }
+
+
+        public function get_precios_dpo() {
+            $conectar = parent::conexion();
+            parent::set_names();
+        
+            // Consulta para obtener los precios relacionados con el servicio "DPO" (id = 2)
+            $sql = "SELECT sp.id, sp.opcion_nombre, sp.precio 
+                    FROM servicio_precios sp
+                    WHERE sp.servicio_id = 2";
+        
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+
+        public function get_precio_pdp() {
+            $conectar = parent::conexion();
+            parent::set_names();
+        
+            // Consulta para obtener el precio relacionado con el servicio "Entrenamiento práctico PDP" (id = 5)
+            $sql = "SELECT sp.precio 
+                    FROM servicio_precios sp
+                    WHERE sp.servicio_id = 5";
+        
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>        
