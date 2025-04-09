@@ -117,6 +117,36 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function get_precios_dpo() {
+            $conectar = parent::conexion();
+            parent::set_names();
+        
+            // Consulta para obtener los precios relacionados con el servicio "DPO" (id = 2)
+            $sql = "SELECT sp.id, sp.opcion_nombre, sp.precio 
+                    FROM servicio_precios sp
+                    WHERE sp.servicio_id = 2";
+        
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function get_precio_por_servicio($servicio_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
+        
+            // Consulta para obtener el precio del servicio específico
+            $sql = "SELECT id, opcion_nombre, precio 
+                    FROM servicio_precios 
+                    WHERE servicio_id = ?";
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $servicio_id); // Vincular el ID del servicio
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devolver los resultados como un array asociativo
+        }
+
     }
 
 ?>        

@@ -67,6 +67,13 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
 
+            <div class="btn-toolbar sw-toolbar sw-toolbar-bottom justify-content-end">
+                <div class="btn-group mr-2 sw-btn-group g-2" role="group">
+                    <button class="btn btn-danger sw-btn-prev disabled" type="button">Cancelar</button>
+                    <button class="btn btn-primary sw-btn-next" type="button">Next</button>
+                </div>
+            </div>
+
         </form>
 
     </div>

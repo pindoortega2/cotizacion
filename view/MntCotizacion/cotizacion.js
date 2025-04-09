@@ -80,6 +80,7 @@ $(document).ready(function () {
             $('#cli_correo[name="correo"]').val('');
         }
     });
+    
 
     // Detectar cambio en el select tipo de empresa
     $("#emp_id").select2({
@@ -191,19 +192,54 @@ $(document).ready(function () {
 
                     // Agregar evento para mostrar el select si se selecciona "DPO"
                     $(".form-check-input").on("change", function () {
+
+                        const servicioId = $(this).val(); // Obtener el ID del servicio seleccionado
+
                         if ($(this).val() === "2" && $(this).is(":checked")) {
+
                             $("#dpo-options-container").show(); // Mostrar el select
+                            cargarPreciosDPO(); // Cargar precios para DPO
+
                         } else if ($(this).val() === "2" && !$(this).is(":checked")) {
+                            
                             $("#dpo-options-container").hide(); // Ocultar el select
-                            $("#dpo-options").val(""); // Reiniciar el valor del select
+                            $("#dpo-options").html('<option value="">Seleccione un precio</option>'); // Reiniciar las opciones del select
+                            $("#dpo-input-container").empty(); // Limpiar el input del precio
+
+                        }else if ($(this).is(":checked")) {
+                            // Si se selecciona cualquier otro checkbox, obtener el precio del servicio
+                            $.ajax({
+                                url: "../../controllers/serviciosC.php?op=obtener_precio", // Ruta al controlador para obtener el precio
+                                type: "POST",
+                                dataType: "json",
+                                data: { servicio_id: servicioId }, // Enviar el ID del servicio al servidor
+                                success: function (data) {
+                                    if (data) {
+                                        // Crear dinámicamente un input con el precio obtenido
+                                        const inputHtml = `
+                                            <div class="form-group col-md-12" id="precio-servicio-${servicioId}">
+                                                <label for="precio-servicio-${servicioId}">Precio de ${data.opcion_nombre}</label>
+                                                <input type="text" class="form-control" value="${data.precio}" readonly>
+                                            </div>
+                                        `;
+
+                                        // Agregar el input al contenedor
+                                        $("#servicios-precios-container").append(inputHtml);
+                                    } else {
+                                        console.log("No se encontró precio para el servicio seleccionado.");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("Error al obtener el precio del servicio:", error);
+                                }
+                            });
+                        }else {
+                            // Si se desmarca el checkbox, eliminar el input correspondiente
+                            $(`#precio-servicio-${servicioId}`).remove();
                         }
-                    });
+                    });    
 
-
-                } else {
-                    // Mostrar mensaje si no hay servicios
-                    $("#servicios-container").html("<p>No se encontraron servicios.</p>");
-                }
+                } 
             },
             error: function (xhr, status, error) {
                 console.error("Error al cargar los servicios:", error);
@@ -213,5 +249,57 @@ $(document).ready(function () {
     }
     // Llamar a la función para cargar los servicios al cargar la página
     cargarServicios();
+
+
+     // Función para cargar los precios de DPO
+    function cargarPreciosDPO() {
+        $.ajax({
+            url: "../../controllers/serviciosC.php?op=precios_dpo", // Ruta al controlador para obtener precios
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                // Limpiar las opciones del select
+                $("#dpo-options").empty();
+                $("#dpo-options").append('<option value="">Seleccione un precio</option>');
+
+                if (data.length > 0) {
+                    // Agregar cada precio como una opción en el select
+                    data.forEach(function (precio) {
+                        const option = `<option value="${precio.id}">${precio.precio} / mensual</option>`;
+                        $("#dpo-options").append(option);
+                    });
+                } else {
+                    $("#dpo-options").append('<option value="">No hay precios disponibles</option>');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al cargar los precios de DPO:", error);
+            }
+        });
+    }
+
+    // Detectar cambio en el select de precios DPO
+    $("#dpo-options").on("change", function () {
+        const selectedOption = $(this).find("option:selected"); // Obtener la opción seleccionada
+        const selectedValue = selectedOption.val(); // Obtener el valor de la opción seleccionada
+        const selectedText = selectedOption.text(); // Obtener el texto de la opción seleccionada
+
+        // Verificar si se seleccionó una opción válida
+        if (selectedValue) {
+            // Crear dinámicamente un input con el valor seleccionado
+            const inputHtml = `
+                <div class="form-group col-md-12">
+                    <label for="dpo-price-input">Precio seleccionado</label>
+                    <input type="text" class="form-control" id="dpo-price-input" name="dpo-price-input" value="${selectedText}" readonly>
+                </div>
+            `;
+
+            // Agregar el input al contenedor
+            $("#dpo-input-container").html(inputHtml);
+        } else {
+            // Si no se selecciona una opción válida, limpiar el contenedor
+            $("#dpo-input-container").empty();
+        }
+    });
 
 });

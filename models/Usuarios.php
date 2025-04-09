@@ -7,7 +7,9 @@ class Usuario extends Conectar {
         $conectar = parent::conexion();
         parent::set_names();
 
-        if (isset($_POST["enviar"])) {          
+        if (isset($_POST["enviar"])) {   
+            
+            
 
             // Saneamiento del correo y contraseña
             $correo = $_POST["use_correo"];

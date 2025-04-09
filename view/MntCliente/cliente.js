@@ -26,9 +26,11 @@ function guardaryeditar(e){
                 /* TODO:Ocultar Modal */
                 $("#modalcliente").modal('hide');
                 $('#lista_cliente').DataTable().ajax.reload();                
+                
 
-                swal({
-                    title: "Empresa!",
+                swal({                  
+
+                    title: "Cliente",
                     text: "Registro Guardado.",
                     icon: "success",
                     confirmButtonClass: "btn-success"
@@ -39,8 +41,8 @@ function guardaryeditar(e){
                 var nombreEmpresa = $('#cli_empresa').val();
                 
                 swal({
-                    title: "Empresa!",
-                    text: "La empresa " + nombreEmpresa + " ya existe.",
+                    title: "Cliente!",
+                    text: "El cliente " + nombreEmpresa + " ya existe.",
                     icon: "warning",
                     confirmButtonClass: "btn-danger"
                 });

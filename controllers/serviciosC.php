@@ -116,6 +116,37 @@
             echo json_encode($resultados); // Devolver los resultados como JSON
             break;
 
+        case "precios_dpo":
+            $datos = $servicios->get_precios_dpo(); // Llamar al método del modelo
+        
+            $resultados = array();
+            if (is_array($datos) && count($datos) > 0) {
+                foreach ($datos as $row) {
+                    $resultados[] = array(
+                        "id" => $row["id"], // Cambiado de "id_precio" a "id"
+                        "opcion_nombre" => $row["opcion_nombre"], // Agregado para incluir el nombre de la opción
+                        "precio" => $row["precio"]
+                    );
+                }
+            }
+            echo json_encode($resultados); // Devolver los resultados como JSON
+            break;
+
+        case "obtener_precio":
+            $servicio_id = isset($_POST["servicio_id"]) ? $_POST["servicio_id"] : 0; // Obtener el ID del servicio desde la solicitud
+            $datos = $servicios->get_precio_por_servicio($servicio_id); // Llamar al método del modelo
+        
+            if (is_array($datos) && count($datos) > 0) {
+                $resultado = array(
+                    "id" => $datos[0]["id"],
+                    "opcion_nombre" => $datos[0]["opcion_nombre"],
+                    "precio" => $datos[0]["precio"]
+                );
+                echo json_encode($resultado); // Devolver el resultado como JSON
+            } else {
+                echo json_encode(array("error" => "No se encontró precio para el servicio seleccionado."));
+            }
+            break;
 
     }
 
