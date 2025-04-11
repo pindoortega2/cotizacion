@@ -127,7 +127,7 @@
                     WHERE sp.servicio_id = 2";
         
             $stmt = $conectar->prepare($sql);
-            $stmt->execute();
+            $stmt->execute();//ejecuta 
         
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
